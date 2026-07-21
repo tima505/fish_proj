@@ -1,0 +1,1186 @@
+<title>Фараданех — цепь производства белка морского происхождения</title>
+<style>
+  @keyframes fadeUp { from { opacity:0; transform:translateY(14px);} to { opacity:1; transform:translateY(0);} }
+
+  :root{
+    --bg:#F1F5F3;
+    --surface:#FFFFFF;
+    --surface-2:#E7EFEC;
+    --ink:#0A2530;
+    --ink-soft:#4C6873;
+    --ink-faint:#7C948E;
+    --line:#D2E1DE;
+    --teal:#0E7C82;
+    --teal-deep:#0A3540;
+    --teal-ink:#08222C;
+    --amber:#A97A22;
+    --aqua-bright:#1FADA6;
+    --shadow: 0 20px 50px -30px rgba(8,34,44,0.35);
+    --radius: 5px;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme]){
+      --bg:#071820;
+      --surface:#0D262E;
+      --surface-2:#0A1F26;
+      --ink:#E7F1EE;
+      --ink-soft:#9FBAB8;
+      --ink-faint:#5E7E7B;
+      --line:#1B3A40;
+      --teal:#3FD0C9;
+      --teal-deep:#0E4B52;
+      --teal-ink:#04141A;
+      --amber:#E2B563;
+      --aqua-bright:#3FD0C9;
+      --shadow: 0 20px 60px -30px rgba(0,0,0,0.6);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#071820; --surface:#0D262E; --surface-2:#0A1F26; --ink:#E7F1EE; --ink-soft:#9FBAB8;
+    --ink-faint:#5E7E7B; --line:#1B3A40; --teal:#3FD0C9; --teal-deep:#0E4B52; --teal-ink:#04141A;
+    --amber:#E2B563; --aqua-bright:#3FD0C9; --shadow: 0 20px 60px -30px rgba(0,0,0,0.6); color-scheme: dark;
+  }
+  :root[data-theme="light"]{
+    --bg:#F1F5F3; --surface:#FFFFFF; --surface-2:#E7EFEC; --ink:#0A2530; --ink-soft:#4C6873;
+    --ink-faint:#7C948E; --line:#D2E1DE; --teal:#0E7C82; --teal-deep:#0A3540; --teal-ink:#08222C;
+    --amber:#A97A22; --aqua-bright:#1FADA6; --shadow: 0 20px 50px -30px rgba(8,34,44,0.35); color-scheme: light;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+
+  html{ overflow-x:clip; }
+  body{ overflow-x:clip; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  h1,h2,h3,.disp{
+    font-family:"Arial Black","Arial Narrow",Arial,sans-serif;
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:0.01em;
+    text-wrap:balance;
+    overflow-wrap:break-word;
+    word-break:break-word;
+    color:var(--ink);
+    margin:0;
+  }
+  .mono{ font-family:Consolas,"Cascadia Mono","Courier New",monospace; }
+
+  a{ color:inherit; }
+  img,svg{ display:block; max-width:100%; }
+  .container{ max-width:1180px; margin:0 auto; padding:0 28px; }
+  section{ position:relative; }
+
+  /* subtle corner rounding */
+  .cta-btn,.cta-ghost,.burger,
+  .cert-chip,.spec-chip,.pet-line,.award-chip{ border-radius:var(--radius); }
+  .num-grid,.dir-grid,.prod-grid{ border-radius:calc(var(--radius) + 1px); overflow:hidden; }
+  .tech-card,.dir-card,.species-card,.pet-card{ border-radius:calc(var(--radius) + 1px); }
+
+  /* ---------- decorative vertical spine ---------- */
+  .spine{
+    position:fixed; top:0; left:50%; width:1px; height:100%;
+    background:linear-gradient(to bottom, transparent, var(--line) 8%, var(--line) 92%, transparent);
+    z-index:0; pointer-events:none; opacity:.55;
+  }
+
+  /* ---------- header ---------- */
+  header.site{
+    position:sticky; top:0; z-index:50;
+    background:color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-row{ display:flex; align-items:center; justify-content:space-between; height:76px; gap:16px; }
+  .brand{ display:flex; align-items:center; gap:12px; text-decoration:none; flex:none; }
+  .brand svg{ width:34px; height:34px; color:var(--teal); }
+  .brand .word{ font-family:"Arial Black",Arial,sans-serif; font-weight:900; font-size:1.15rem; letter-spacing:.06em; }
+  .brand .word small{ display:block; font-family:Georgia,serif; font-weight:400; text-transform:none; letter-spacing:0; font-size:.62rem; color:var(--ink-faint); margin-top:1px;}
+
+  .nav-cluster{ display:flex; align-items:center; gap:24px; }
+  nav.links{ display:flex; gap:26px; align-items:center; }
+  nav.links a{
+    text-decoration:none; font-family:"Arial Black",Arial,sans-serif; font-size:.68rem;
+    text-transform:uppercase; letter-spacing:.08em; color:var(--ink-soft);
+    padding-bottom:4px; border-bottom:1px solid transparent; transition:color .2s, border-color .2s;
+    white-space:nowrap;
+  }
+  nav.links a:hover{ color:var(--teal); border-color:var(--teal); }
+
+  .controls{ display:flex; align-items:center; gap:10px; flex:none; }
+  .lang-switch{ display:flex; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
+  .lang-switch button{
+    font-family:"Arial Black",Arial,sans-serif; font-size:.6rem; letter-spacing:.06em;
+    padding:7px 9px; background:transparent; color:var(--ink-soft); border:none;
+    border-left:1px solid var(--line); cursor:pointer; transition:background .2s, color .2s;
+  }
+  .lang-switch button:first-child{ border-left:none; }
+  .lang-switch button.active{ background:var(--teal); color:#F4FBFA; }
+  .lang-switch button:hover:not(.active){ color:var(--teal); }
+  .theme-toggle{
+    width:38px; height:38px; border:1px solid var(--line); border-radius:var(--radius);
+    background:transparent; color:var(--ink); cursor:pointer; display:flex; align-items:center;
+    justify-content:center; transition:border-color .2s, color .2s;
+  }
+  .theme-toggle:hover{ border-color:var(--teal); color:var(--teal); }
+  .theme-toggle svg{ width:18px; height:18px; }
+
+  .cta-btn{
+    font-family:"Arial Black",Arial,sans-serif; font-size:.68rem; text-transform:uppercase; letter-spacing:.08em;
+    background:var(--teal); color:#F4FBFA; padding:11px 20px; text-decoration:none; border:1px solid var(--teal);
+    transition:background .2s, color .2s; white-space:nowrap;
+  }
+  .cta-btn:hover{ background:transparent; color:var(--teal); }
+  .cta-ghost{
+    font-family:"Arial Black",Arial,sans-serif; font-size:.68rem; text-transform:uppercase; letter-spacing:.08em;
+    background:transparent; color:var(--ink); padding:11px 20px; text-decoration:none; border:1px solid var(--line);
+    transition:border-color .2s, color .2s;
+  }
+  .cta-ghost:hover{ border-color:var(--teal); color:var(--teal); }
+
+  .burger{ display:none; background:none; border:1px solid var(--line); width:42px; height:42px; align-items:center; justify-content:center; cursor:pointer; color:var(--ink); border-radius:var(--radius); }
+  .mobile-menu{ display:none; flex-direction:column; gap:2px; border-bottom:1px solid var(--line); background:var(--surface); }
+  .mobile-menu a{ padding:16px 28px; text-decoration:none; color:var(--ink-soft); font-family:"Arial Black",Arial,sans-serif; font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; border-top:1px solid var(--line); }
+  .mobile-menu.open{ display:flex; }
+
+  /* ---------- hero ---------- */
+  .hero{ position:relative; overflow:hidden; background:var(--teal-ink); color:#EAF4F2; padding:0; }
+  .hero canvas{ position:absolute; inset:0; width:100%; height:100%; opacity:.55; }
+  .hero-inner{ position:relative; z-index:2; padding:150px 28px 96px; max-width:1180px; margin:0 auto; }
+  .eyebrow{
+    font-family:Consolas,monospace; font-size:.72rem; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--aqua-bright); display:flex; align-items:center; gap:10px; margin-bottom:26px;
+  }
+  .eyebrow::before{ content:""; width:26px; height:1px; background:var(--aqua-bright); flex:none; }
+  .hero h1{ color:#F5FBFA; font-size:clamp(2.6rem, 7vw, 5.6rem); line-height:0.96; letter-spacing:.005em; }
+  .hero h1 span{ color:var(--aqua-bright); }
+  .hero .lede{
+    font-family:Georgia,serif; font-style:italic; font-size:clamp(1.05rem,2vw,1.3rem);
+    color:#C6DBD8; max-width:640px; margin:26px 0 40px; line-height:1.55;
+  }
+  .hero .ctas{ display:flex; gap:16px; flex-wrap:wrap; margin-bottom:70px; }
+  .hero .ctas .cta-ghost{ border-color:#3C5F5F; color:#EAF4F2; }
+  .hero .ctas .cta-ghost:hover{ border-color:var(--aqua-bright); color:var(--aqua-bright); }
+
+  .hero-stats{
+    display:grid; grid-template-columns:repeat(5,1fr); border-top:1px solid #1E4045; margin-top:20px;
+  }
+  .hero-stats div{ padding:22px 20px 0; border-left:1px solid #1E4045; }
+  .hero-stats div:first-child{ border-left:none; padding-left:0; }
+  .hero-stats .num{ font-family:Consolas,monospace; font-size:clamp(1.4rem,2.6vw,2.1rem); color:#F5FBFA; font-variant-numeric:tabular-nums; }
+  .hero-stats .lbl{ font-family:"Arial Black",Arial,sans-serif; font-size:.62rem; text-transform:uppercase; letter-spacing:.06em; color:#8FADAA; margin-top:6px; }
+
+  /* ---------- generic section chrome ---------- */
+  .band{ padding:96px 0; border-bottom:1px solid var(--line); }
+  .band.alt{ background:var(--surface); }
+  .head-row{ display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:52px; flex-wrap:wrap; }
+  .kicker{ font-family:Consolas,monospace; font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--teal); display:flex; align-items:center; gap:10px; margin-bottom:14px;}
+  .kicker::before{ content:""; width:26px; height:1px; background:var(--teal); flex:none; }
+  .head-row h2{ font-size:clamp(1.7rem,3.4vw,2.6rem); max-width:640px; }
+  .head-row p{ max-width:420px; color:var(--ink-soft); font-size:.95rem; margin:0; }
+
+  .lead-p{ max-width:700px; color:var(--ink-soft); font-size:1.05rem; }
+
+  /* reveal */
+  .reveal{ opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+  @media (prefers-reduced-motion: reduce){ .reveal{ opacity:1; transform:none; transition:none; } }
+
+  /* ---------- about numbers ---------- */
+  .about-grid{ display:grid; grid-template-columns:1.1fr .9fr; gap:64px; align-items:start; }
+  .num-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); }
+  .num-grid div{ background:var(--surface); padding:26px 22px; }
+  .num-grid .num{ font-family:Consolas,monospace; font-size:1.9rem; color:var(--teal); font-variant-numeric:tabular-nums; }
+  .num-grid .lbl{ font-size:.82rem; color:var(--ink-soft); margin-top:6px; }
+
+  /* ---------- tech card w/ corner brackets ---------- */
+  .tech-card{ position:relative; border:1px solid var(--line); background:var(--surface); padding:28px 26px; }
+  .tech-card::before,.tech-card::after{
+    content:""; position:absolute; width:12px; height:12px; pointer-events:none;
+  }
+  .tech-card::before{ top:-1px; left:-1px; border-top:2px solid var(--teal); border-left:2px solid var(--teal); }
+  .tech-card::after{ bottom:-1px; right:-1px; border-bottom:2px solid var(--teal); border-right:2px solid var(--teal); }
+
+  /* ---------- directions grid ---------- */
+  .dir-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); }
+  .dir-card{ background:var(--surface); padding:32px 30px; display:flex; flex-direction:column; gap:14px; min-height:190px; }
+  .dir-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:14px; }
+  .dir-code{ font-family:Consolas,monospace; font-size:.78rem; color:var(--teal); letter-spacing:.05em; }
+  .dir-card h3{ font-size:1.05rem; letter-spacing:0; margin:2px 0 0; }
+  .dir-card p{ font-size:.9rem; color:var(--ink-soft); margin:0; flex:1; }
+  .dir-metric{ font-family:Consolas,monospace; font-size:.72rem; color:var(--amber); border-top:1px dashed var(--line); padding-top:10px; }
+  .dir-icon{ width:26px; height:26px; color:var(--ink-faint); flex:none; }
+
+  /* ---------- production stats ---------- */
+  .prod-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-bottom:56px; }
+  .prod-grid div{ background:var(--teal-deep); color:#EAF4F2; padding:30px 24px; }
+  .prod-grid .num{ font-family:Consolas,monospace; font-size:2.1rem; color:var(--aqua-bright); font-variant-numeric:tabular-nums; }
+  .prod-grid .lbl{ font-size:.78rem; color:#B9D3D0; margin-top:8px; line-height:1.4; }
+  .bullet-cols{ display:grid; grid-template-columns:1fr 1fr; gap:40px; }
+  .bullet-cols ul{ margin:0; padding:0; list-style:none; }
+  .bullet-cols li{ padding:14px 0; border-top:1px solid var(--line); font-size:.95rem; color:var(--ink-soft); display:flex; gap:12px; }
+  .bullet-cols li::before{ content:"—"; color:var(--teal); flex:none; }
+  .bullet-cols li b{ color:var(--ink); font-weight:normal; font-family:inherit; }
+
+  /* ---------- quality / RnD ---------- */
+  .qual-grid{ display:grid; grid-template-columns:1fr 1fr; gap:64px; }
+  .cert-row{ display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; }
+  .cert-chip{
+    font-family:Consolas,monospace; font-size:.72rem; letter-spacing:.02em; border:1px solid var(--line);
+    padding:9px 14px; color:var(--ink-soft); background:var(--surface);
+  }
+  .rnd-stat{ display:flex; gap:20px; align-items:baseline; padding:16px 0; border-top:1px solid var(--line); }
+  .rnd-stat .num{ font-family:Consolas,monospace; font-size:1.6rem; color:var(--teal); flex:none; width:80px; }
+  .rnd-stat p{ margin:0; font-size:.92rem; color:var(--ink-soft); }
+
+  /* ---------- product species grid ---------- */
+  .species-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+  .species-card{ padding:24px 20px; }
+  .species-card .sp-icon{ width:30px; height:30px; color:var(--teal); margin-bottom:16px; }
+  .species-card h3{ font-size:.95rem; letter-spacing:.01em; margin-bottom:6px; }
+  .species-card .sp-form{ font-size:.78rem; color:var(--ink-faint); font-style:italic; font-family:Georgia,serif; margin-bottom:14px; }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:6px; }
+  .spec-chip{
+    font-family:Consolas,monospace; font-size:.66rem; background:var(--surface-2); color:var(--ink-soft);
+    padding:5px 9px; border:1px solid var(--line);
+  }
+
+  /* ---------- pet food ---------- */
+  .pet-grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  .pet-card{ padding:34px; display:flex; flex-direction:column; gap:18px; }
+  .pet-head{ display:flex; align-items:center; gap:16px; }
+  .pet-head .sp-icon{ width:38px; height:38px; color:var(--amber); }
+  .pet-head h3{ font-size:1.3rem; }
+  .pet-lines{ display:flex; gap:10px; flex-wrap:wrap; }
+  .pet-line{ font-family:Consolas,monospace; font-size:.7rem; border:1px solid var(--line); padding:6px 11px; color:var(--ink-soft); }
+  .pet-card p{ color:var(--ink-soft); font-size:.9rem; margin:0; }
+
+  /* ---------- awards strip ---------- */
+  .awards-strip{ display:flex; flex-wrap:wrap; gap:14px; align-items:center; }
+  .award-chip{ display:flex; align-items:center; gap:8px; border:1px solid var(--line); padding:10px 16px; font-family:Consolas,monospace; font-size:.72rem; color:var(--ink-soft); }
+  .award-chip svg{ width:15px; height:15px; color:var(--teal); flex:none; }
+
+  /* ---------- contact / footer ---------- */
+  .contact-band{ background:var(--teal-ink); color:#EAF4F2; padding:100px 0 60px; }
+  .contact-grid{ display:grid; grid-template-columns:1.2fr .8fr; gap:60px; }
+  .contact-band h2{ color:#F5FBFA; font-size:clamp(1.9rem,4vw,3rem); max-width:520px; }
+  .contact-band .lead-p{ color:#B9D3D0; margin-top:20px; }
+  .contact-links{ display:flex; flex-direction:column; gap:0; margin-top:30px; }
+  .contact-links a{ text-decoration:none; padding:18px 0; border-top:1px solid #1E4045; display:flex; justify-content:space-between; align-items:center; color:#EAF4F2; font-family:Consolas,monospace; font-size:.95rem; }
+  .contact-links a:last-child{ border-bottom:1px solid #1E4045; }
+  .contact-links a span.tag{ font-family:"Arial Black",Arial,sans-serif; font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:#7FA6A2; }
+  .contact-side{ border-left:1px solid #1E4045; padding-left:60px; }
+  .contact-side .kicker{ color:var(--aqua-bright); }
+  .contact-side .kicker::before{ background:var(--aqua-bright); }
+  .contact-side ul{ list-style:none; margin:0; padding:0; }
+  .contact-side li{ padding:12px 0; border-top:1px solid #1E4045; font-size:.88rem; color:#B9D3D0; }
+
+  footer.site{ background:var(--teal-ink); color:#7FA6A2; padding:26px 0; border-top:1px solid #1E4045; }
+  .foot-row{ display:flex; justify-content:space-between; align-items:center; font-family:Consolas,monospace; font-size:.72rem; flex-wrap:wrap; gap:10px; }
+
+  /* ---------- tablet ---------- */
+  @media (max-width: 980px){
+    nav.links{ display:none; }
+    .burger{ display:flex; }
+  }
+  @media (max-width: 920px){
+    .hero-stats{ grid-template-columns:repeat(2,1fr); row-gap:20px; }
+    .hero-stats div:nth-child(3){ border-left:none; }
+    .about-grid,.qual-grid,.contact-grid,.bullet-cols{ grid-template-columns:1fr; gap:36px; }
+    .contact-side{ border-left:none; padding-left:0; border-top:1px solid #1E4045; padding-top:36px; }
+    .dir-grid{ grid-template-columns:1fr; }
+    .prod-grid{ grid-template-columns:1fr 1fr; }
+    .species-grid{ grid-template-columns:1fr 1fr; }
+    .pet-grid{ grid-template-columns:1fr; }
+  }
+
+  /* ---------- phone ---------- */
+  @media (max-width: 620px){
+    body{ font-size:15px; }
+    .container{ padding:0 18px; }
+    .spine{ display:none; }
+
+    .nav-row{ height:60px; gap:8px; }
+    .brand svg{ width:26px; height:26px; }
+    .brand .word{ font-size:.92rem; letter-spacing:.03em; }
+    .brand .word small{ display:none; }
+    .nav-cluster{ gap:8px; }
+    .controls{ gap:7px; }
+    .lang-switch button{ padding:6px 7px; font-size:.56rem; }
+    .theme-toggle{ width:34px; height:34px; }
+    .theme-toggle svg{ width:16px; height:16px; }
+    .burger{ width:38px; height:38px; }
+
+    /* hero */
+    .hero-inner{ padding:96px 18px 60px; }
+    .eyebrow{ font-size:.58rem; letter-spacing:.12em; margin-bottom:20px; line-height:1.5; }
+    .hero h1{ font-size:clamp(2.1rem,10vw,2.9rem); }
+    .hero .lede{ font-size:1.02rem; margin:20px 0 30px; }
+    .hero .ctas{ flex-direction:column; align-items:stretch; gap:12px; margin-bottom:48px; }
+    .hero .ctas a{ text-align:center; padding:15px 18px; }
+    .hero-stats{ grid-template-columns:1fr 1fr; row-gap:24px; margin-top:10px; }
+    .hero-stats div{ padding:20px 14px 0; }
+    .hero-stats div:nth-child(odd){ border-left:none; padding-left:0; }
+    .hero-stats div:nth-child(5){ grid-column:1 / -1; border-left:none; padding-left:0; }
+    .hero-stats .num{ font-size:1.7rem; }
+
+    /* sections */
+    .band, .band.alt{ padding:60px 0; }
+    .head-row{ margin-bottom:36px; }
+    .head-row h2{ font-size:1.55rem; }
+    .head-row p{ font-size:.9rem; }
+    .lead-p{ font-size:1rem; }
+
+    /* stacked grids */
+    .prod-grid{ grid-template-columns:1fr 1fr; }
+    .prod-grid .num{ font-size:1.7rem; }
+    .prod-grid div{ padding:22px 16px; }
+    .species-grid{ grid-template-columns:1fr; gap:12px; }
+    .num-grid{ grid-template-columns:1fr; }
+    .num-grid .num{ font-size:1.7rem; }
+    .num-grid div{ padding:20px 18px; }
+
+    .dir-card{ padding:26px 22px; min-height:0; }
+    .contact-band{ padding:64px 0 48px; }
+    .contact-band h2{ font-size:1.7rem; }
+    .cert-chip, .pet-line, .award-chip{ font-size:.66rem; }
+    .awards-strip{ gap:10px; }
+
+    .foot-row{ flex-direction:column; align-items:flex-start; gap:6px; font-size:.68rem; }
+  }
+
+  @media (max-width: 380px){
+    .prod-grid{ grid-template-columns:1fr; }
+    .hero h1{ font-size:2.15rem; }
+    .hero-stats{ grid-template-columns:1fr; }
+    .hero-stats div{ border-left:none; padding-left:0; }
+    .head-row h2{ font-size:1.4rem; }
+    .contact-band h2{ font-size:1.5rem; }
+    .brand .word{ font-size:.8rem; }
+  }
+</style>
+
+<div class="spine"></div>
+
+<header class="site">
+  <div class="container nav-row">
+    <a href="#top" class="brand">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 6c8 10 14 17 14 25a14 14 0 0 1-28 0c0-8 6-15 14-25Z"/><path d="M16 30c2 4 5.5 6 8 6" stroke-linecap="round"/></svg>
+      <span class="word">ФАРАДАНЕХ<small data-i18n="brand_sub">Faradaneh Co. — водная индустрия</small></span>
+    </a>
+    <div class="nav-cluster">
+      <nav class="links">
+        <a href="#about" data-i18n="nav_about">Компания</a>
+        <a href="#directions" data-i18n="nav_directions">Направления</a>
+        <a href="#production" data-i18n="nav_production">Производство</a>
+        <a href="#quality" data-i18n="nav_quality">Качество</a>
+        <a href="#products" data-i18n="nav_products">Продукция</a>
+        <a href="#contact" class="cta-btn" data-i18n="nav_contact">Контакты</a>
+      </nav>
+      <div class="controls">
+        <div class="lang-switch" role="group" aria-label="Язык / Til / Тіл">
+          <button type="button" data-lang="ru">RU</button>
+          <button type="button" data-lang="uz">UZ</button>
+          <button type="button" data-lang="kz">KZ</button>
+        </div>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Тема">
+          <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+          <svg id="iconSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke-linecap="round"/></svg>
+        </button>
+        <button class="burger" id="burgerBtn" aria-label="Меню" aria-expanded="false">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" data-i18n="nav_about">Компания</a>
+    <a href="#directions" data-i18n="nav_directions">Направления</a>
+    <a href="#production" data-i18n="nav_production">Производство</a>
+    <a href="#quality" data-i18n="nav_quality">Качество</a>
+    <a href="#products" data-i18n="nav_products">Продукция</a>
+    <a href="#contact" data-i18n="nav_contact">Контакты</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <canvas id="waveCanvas"></canvas>
+    <div class="hero-inner">
+      <div class="eyebrow" data-i18n="hero_eyebrow">Faradaneh Co. · водная промышленность Ирана · с 1998 года</div>
+      <h1 data-i18n-html="hero_h1">Полная цепь<br>белка <span>морского происхождения</span></h1>
+      <p class="lede" data-i18n="hero_lede">От сырья и рецептур — до корма, рыбы на ферме и готовой консервной банки. Фараданех — крупнейшее и наиболее полное производственное объединение водной индустрии Ирана.</p>
+      <div class="ctas">
+        <a href="#directions" class="cta-btn" data-i18n="hero_cta1">10 направлений деятельности</a>
+        <a href="#products" class="cta-ghost" data-i18n="hero_cta2">Каталог кормов</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="num" data-i18n="hn1">450 000 т</div><div class="lbl" data-i18n="stat_l1">кормов в год</div></div>
+        <div><div class="num">2 500+</div><div class="lbl" data-i18n="stat_l2">рабочих мест</div></div>
+        <div><div class="num">60+</div><div class="lbl" data-i18n="stat_l3">ферм разведения</div></div>
+        <div><div class="num">8</div><div class="lbl" data-i18n="stat_l4">заводов рыбной муки</div></div>
+        <div><div class="num">16</div><div class="lbl" data-i18n="stat_l5">производственных линий</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="about">
+    <div class="container about-grid">
+      <div class="reveal">
+        <div class="kicker" data-i18n="about_kicker">О компании</div>
+        <h2 data-i18n="about_h2">Более четверти века в основании отрасли</h2>
+        <p class="lead-p" style="margin-top:22px;" data-i18n="about_p1">Обладая более чем 25-летним опытом в водной индустрии страны, Фараданех известна как крупнейшая и наиболее полная цепь производства белка морского происхождения в Иране. Компания играет значительную роль в самодостаточности отрасли и создала более 2500 рабочих мест. Акционеры компании последовательно инвестируют в полный цикл — от сырья до готового продукта на полке.</p>
+        <p class="lead-p" style="margin-top:16px;" data-i18n="about_p2">Ниже — десять направлений, из которых складывается эта цепь.</p>
+      </div>
+      <div class="reveal num-grid">
+        <div><div class="num">25+</div><div class="lbl" data-i18n="about_l1">лет на рынке водной индустрии</div></div>
+        <div><div class="num" data-i18n="an2">10 000+ т</div><div class="lbl" data-i18n="about_l2">добавок собственного производства</div></div>
+        <div><div class="num">100+</div><div class="lbl" data-i18n="about_l3">специализированных грузовиков</div></div>
+        <div><div class="num" data-i18n="an4">15 млн+</div><div class="lbl" data-i18n="about_l4">банок рыбных консервов в год</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band alt" id="directions">
+    <div class="container">
+      <div class="head-row reveal">
+        <div>
+          <div class="kicker" data-i18n="dir_kicker">Структура холдинга</div>
+          <h2 data-i18n="dir_h2">10 направлений деятельности</h2>
+        </div>
+        <p data-i18n="dir_head">Полный цикл — от сырья и кормов до фермы, переработки, консервирования и дистрибуции внутри страны и на экспорт.</p>
+      </div>
+
+      <div class="dir-grid reveal">
+
+        <div class="dir-card">
+          <div class="dir-top"><span class="dir-code">01 / <span data-i18n="c1">КОРМА</span></span>
+            <svg class="dir-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 6h20l6 12v6H8v-6l6-12Z"/><path d="M8 24v14a4 4 0 0 0 4 4h24a4 4 0 0 0 4-4V24"/><path d="M24 6v18"/></svg>
+          </div>
+          <h3 data-i18n="dir1_h">Производство кормов для водных</h3>
+          <p data-i18n="dir1_p">Годовая мощность 450 000 тонн кормов для рыб, птицы, водных и домашних животных — крупнейший производитель на Ближнем Востоке.</p>
+          <div class="dir-metric" data-i18n="dir1_m">450 000 т/год · бренд Farafoodplus</div>
+        </div>
+
+        <div class="dir-card">
+          <div class="dir-top"><span class="dir-code">02 / <span data-i18n="c2">СЫРЬЁ</span></span>
+            <svg class="dir-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="24" cy="24" r="16"/><path d="M24 14v10l7 5"/></svg>
+          </div>
+          <h3 data-i18n="dir2_h">Рыбная мука и рыбий жир</h3>
+          <p data-i18n="dir2_p">8 заводов в северных и южных провинциях страны под контролем экспертов по качеству — ключевое сырьё для рецептур кормов.</p>
+          <div class="dir-metric" data-i18n="dir2_m">8 заводов · сев. и юж. провинции</div>
+        </div>
+
+        <div class="dir-card">
+          <div class="dir-top"><span class="dir-code">03 / <span data-i18n="c3">ТОРГОВЛЯ</span></span>
+            <svg class="dir-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 24h36M24 6c6 6 6 30 0 36M24 6c-6 6-6 30 0 36"/></svg>
+          </div>
+          <h3 data-i18n="dir3_h">Внешняя торговля</h3>
+          <p data-i18n="dir3_p">Импорт сырья для водных кормов и экспорт выращенных гидробионтов, водных и сухих кормов для домашних животных.</p>
+          <div class="dir-metric" data-i18n="dir3_m">импорт сырья · экспорт продукции</div>
+        </div>
+
+        <div class="dir-card">
+          <div class="dir-top"><span class="dir-code">04 / <span data-i18n="c4">ДОБАВКИ</span></span>
+            <svg class="dir-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 6h12v10l8 18a4 4 0 0 1-4 6H14a4 4 0 0 1-4-6l8-18V6Z"/><path d="M15 30h18"/></svg>
+          </div>
+          <h3 data-i18n="dir4_h">Производство добавок</h3>
+          <p data-i18n="dir4_p">Эксклюзивные рецепты и индивидуальные формулы, гарантирующие качество производимых кормов.</p>
+          <div class="dir-metric" data-i18n="dir4_m">10 000+ т добавок в год</div>
+        </div>
+
+        <div class="dir-card">
+          <div class="dir-top"><span class="dir-code">05 / <span data-i18n="c5">МАСЛО</span></span>
+            <svg class="dir-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M24 6c6 8 12 15 12 22a12 12 0 0 1-24 0c0-7 6-14 12-22Z"/></svg>
+          </div>
+          <h3 data-i18n="dir5_h">Завод растительного масла</h3>
+          <p data-i18n="dir5_p">Производство различных видов растительного масла и муки, используемых в собственной цепи производства.</p>
+          <div class="dir-metric" data-i18n="dir5_m">масло + мука для внутренних нужд</div>
+        </div>
+
+        <div class="dir-card">
+          <div class="dir-top"><span class="dir-code">06 / <span data-i18n="c6">ФЕРМЫ</span></span>
+            <svg class="dir-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 34c8-14 14-14 18 0M24 34c8-14 14-14 18 0" /><path d="M4 34h40"/></svg>
+          </div>
+          <h3 data-i18n="dir6_h">Фермы разведения водных видов</h3>
+          <p data-i18n="dir6_p">Крупнейшие инкубационные и развивающие центры — более 60 ферм всех видов гидробионтов по стране.</p>
+          <div class="dir-metric" data-i18n="dir6_m">60+ ферм · 10 000 т/год</div>
+        </div>
+
+        <div class="dir-card">
+          <div class="dir-top"><span class="dir-code">07 / <span data-i18n="c7">ЛОГИСТИКА</span></span>
+            <svg class="dir-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="16" width="22" height="16" rx="1"/><path d="M26 22h10l6 6v4h-16z"/><circle cx="14" cy="35" r="3"/><circle cx="34" cy="35" r="3"/></svg>
+          </div>
+          <h3 data-i18n="dir7_h">Транспортировка и поставки</h3>
+          <p data-i18n="dir7_p">Более 100 специализированных грузовиков и прямые поставки на основные рынки внутри страны и за рубежом.</p>
+          <div class="dir-metric" data-i18n="dir7_m">100+ спецгрузовиков</div>
+        </div>
+
+        <div class="dir-card">
+          <div class="dir-top"><span class="dir-code">08 / <span data-i18n="c8">ПЕРЕРАБОТКА</span></span>
+            <svg class="dir-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="8" y="10" width="32" height="28" rx="1"/><path d="M8 20h32M18 10v28"/></svg>
+          </div>
+          <h3 data-i18n="dir8_h">Переработка и упаковка</h3>
+          <p data-i18n="dir8_p">Переработка и упаковка белковых продуктов, особенно аквапродуктов, под маркой «Новый вкус» (Pazen Taraz).</p>
+          <div class="dir-metric" data-i18n="dir8_m">бренд «Новый вкус»</div>
+        </div>
+
+        <div class="dir-card">
+          <div class="dir-top"><span class="dir-code">09 / <span data-i18n="c9">КОНСЕРВЫ</span></span>
+            <svg class="dir-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="10" y="10" width="28" height="28" rx="14"/><path d="M10 24h28"/></svg>
+          </div>
+          <h3 data-i18n="dir9_h">Производство рыбных консервов</h3>
+          <p data-i18n="dir9_p">Годовая мощность более 15 млн банок на севере и юге страны под марками Topsy, Golden Lux, Adak и др.</p>
+          <div class="dir-metric" data-i18n="dir9_m">15 млн+ банок/год</div>
+        </div>
+
+        <div class="dir-card">
+          <div class="dir-top"><span class="dir-code">10 / <span data-i18n="c10">АГРО</span></span>
+            <svg class="dir-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="8" y="18" width="28" height="16" rx="2"/><circle cx="16" cy="38" r="3"/><circle cx="32" cy="38" r="3"/><path d="M8 24h28"/></svg>
+          </div>
+          <h3 data-i18n="dir10_h">Молочно-мясной комплекс</h3>
+          <p data-i18n="dir10_p">Две промышленные животноводческие фермы на 1000 голов с доильным, племенным и откормочным отделениями.</p>
+          <div class="dir-metric" data-i18n="dir10_m">15 т молока/день · 500 голов КРС</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="production">
+    <div class="container">
+      <div class="head-row reveal">
+        <div>
+          <div class="kicker" data-i18n="prod_kicker">Заводы по производству кормов</div>
+          <h2 data-i18n="prod_h2">Мощности, рассчитанные на масштаб отрасли</h2>
+        </div>
+        <p data-i18n="prod_head">Крупнейшая организованная сеть продаж и дистрибуции в Иране — и крупнейший экспортёр водных кормов в стране.</p>
+      </div>
+
+      <div class="prod-grid reveal">
+        <div><div class="num">16</div><div class="lbl" data-i18n="prod_l1">линий экструзии и пресс-грануляции</div></div>
+        <div><div class="num" data-i18n="pn2">800+ т</div><div class="lbl" data-i18n="prod_l2">производственная мощность в сутки</div></div>
+        <div><div class="num" data-i18n="pn3">450 000 т</div><div class="lbl" data-i18n="prod_l3">годовая мощность кормов</div></div>
+        <div><div class="num" data-i18n="pn4">№1</div><div class="lbl" data-i18n="prod_l4">экспортёр водных кормов в стране</div></div>
+      </div>
+
+      <div class="bullet-cols reveal">
+        <ul>
+          <li data-i18n-html="prod_b1"><b>Farafoodplus</b> — собственный бренд сухих кормов для животных разных пород и возрастов.</li>
+          <li data-i18n="prod_b2">Крупнейшие складские площади страны для хранения сырья.</li>
+        </ul>
+        <ul>
+          <li data-i18n="prod_b3">Опытная техническая команда локализует сборку машин и производственных линий.</li>
+          <li data-i18n="prod_b4">Крупнейшая организованная сеть продаж и распространения продукции в Иране.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="band alt" id="quality">
+    <div class="container qual-grid">
+      <div class="reveal">
+        <div class="kicker" data-i18n="qual_kicker">Контроль качества</div>
+        <h2 data-i18n="qual_h2">Сертифицировано на каждом этапе</h2>
+        <p class="lead-p" style="margin-top:18px;" data-i18n="qual_p">Количественные и качественные проверки на всех этапах производства с привлечением опытных экспертов и современного лабораторного оборудования — химического, микробиологического и биотехнологического.</p>
+        <div class="cert-row">
+          <span class="cert-chip">ISO 9001:2015</span>
+          <span class="cert-chip">ISO 22000:2018</span>
+          <span class="cert-chip">GMP</span>
+          <span class="cert-chip">HACCP</span>
+          <span class="cert-chip">ISO 17025:2017</span>
+          <span class="cert-chip">IR‑CODE</span>
+          <span class="cert-chip" data-i18n="qual_cert7">Образец нац. стандарта</span>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="kicker" data-i18n="qual_kicker2">Исследования и разработки</div>
+        <h2 style="font-size:1.5rem;" data-i18n="qual_h2b">R&amp;D и послепродажный сервис</h2>
+        <div class="rnd-stat"><div class="num">15</div><p data-i18n="qual_r1">докторов наук в штате, сотрудничающих с университетами страны</p></div>
+        <div class="rnd-stat"><div class="num">70+</div><p data-i18n="qual_r2">штатных специалистов с учёной степенью магистра</p></div>
+        <div class="rnd-stat"><div class="num">100%</div><p data-i18n="qual_r3">онлайн-заказы, визиты на фермы и семинары для клиентов</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="products">
+    <div class="container">
+      <div class="head-row reveal">
+        <div>
+          <div class="kicker" data-i18n="prod2_kicker">Продукция</div>
+          <h2 data-i18n="prod2_h2">Экструдированные корма для 8 видов гидробионтов</h2>
+        </div>
+        <p data-i18n="prod2_head">Рецептуры под каждый вид, размер и стадию роста — с точным балансом протеина, жиров и калибра гранулы.</p>
+      </div>
+
+      <div class="species-grid reveal">
+
+        <div class="species-card tech-card">
+          <svg class="sp-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 24c8-10 20-14 30-10-2 4-2 6 0 10-10 4-22 0-30-10Z"/><circle cx="30" cy="20" r="1.2" fill="currentColor"/><path d="M34 14l8-4-2 8"/></svg>
+          <h3 data-i18n="sp1_h">Форель</h3>
+          <div class="sp-form" data-i18n="sp1_f">экструдированный, плавучий</div>
+          <div class="chip-row"><span class="spec-chip" data-i18n="sp1_p">протеин 38–54%</span><span class="spec-chip" data-i18n="sp1_s">0.3–9.5 мм</span></div>
+        </div>
+
+        <div class="species-card tech-card">
+          <svg class="sp-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 26c8-8 20-12 30-8-2 4-2 6 0 10-10 4-22-2-30-2Z"/><path d="M34 16l8-2-2 8"/></svg>
+          <h3 data-i18n="sp2_h">Карповые</h3>
+          <div class="sp-form" data-i18n="sp2_f">плавучий / тонущий, типы A/B/C</div>
+          <div class="chip-row"><span class="spec-chip" data-i18n="sp2_p">протеин 21–43%</span><span class="spec-chip" data-i18n="sp2_s">0.3–10 мм</span></div>
+        </div>
+
+        <div class="species-card tech-card">
+          <svg class="sp-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 24c10-6 24-8 32-2-3 3-3 5 0 8-8 6-22 4-32-2 0-1 0-3 0-4Z"/></svg>
+          <h3 data-i18n="sp3_h">Осетровые</h3>
+          <div class="sp-form" data-i18n="sp3_f">экструдированный, тонущий</div>
+          <div class="chip-row"><span class="spec-chip" data-i18n="sp3_p">протеин 40–56%</span><span class="spec-chip" data-i18n="sp3_s">0.3–12 мм</span></div>
+        </div>
+
+        <div class="species-card tech-card">
+          <svg class="sp-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 30c-2-8 4-16 12-18 6-1 10 2 9 6-1 3-5 2-6 5-1 3 2 5 6 4 6-2 8-8 6-12" stroke-linecap="round"/><path d="M9 30l-4 3M12 27l-3 4"/></svg>
+          <h3 data-i18n="sp4_h">Креветка Ваннамей</h3>
+          <div class="sp-form" data-i18n="sp4_f">гранулы, тонущий корм</div>
+          <div class="chip-row"><span class="spec-chip" data-i18n="sp4_p">протеин 37–46%</span><span class="spec-chip" data-i18n="sp4_s">PL10 – &gt;20 г</span></div>
+        </div>
+
+        <div class="species-card tech-card">
+          <svg class="sp-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 24c8-9 20-13 30-9-2 4-2 6 0 10-10 4-22 0-30-1Z"/><path d="M34 15l8-3-1 8"/></svg>
+          <h3 data-i18n="sp5_h">Морской окунь</h3>
+          <div class="sp-form" data-i18n="sp5_f">экструдированный, полуплавучий</div>
+          <div class="chip-row"><span class="spec-chip" data-i18n="sp5_p">протеин 41–54%</span><span class="spec-chip" data-i18n="sp5_s">0.3–10 мм</span></div>
+        </div>
+
+        <div class="species-card tech-card">
+          <svg class="sp-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 24c8-7 20-11 30-7-2 4-2 6 0 10-10 4-22 1-30-3Z"/><path d="M34 17l8-2-1 8"/></svg>
+          <h3 data-i18n="sp6_h">Тилапия</h3>
+          <div class="sp-form" data-i18n="sp6_f">экструдированный, плавучий</div>
+          <div class="chip-row"><span class="spec-chip" data-i18n="sp6_p">протеин 31–49%</span><span class="spec-chip" data-i18n="sp6_s">0.4–6 мм</span></div>
+        </div>
+
+        <div class="species-card tech-card">
+          <svg class="sp-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 24c9-11 21-15 30-9-1 5-1 6 0 10-9 5-21 1-30-1Z"/></svg>
+          <h3 data-i18n="sp7_h">Амурской (белый амур)</h3>
+          <div class="sp-form" data-i18n="sp7_f">чечевицеобразный — впервые в Иране</div>
+          <div class="chip-row"><span class="spec-chip" data-i18n="sp7_p">протеин 28–30%</span><span class="spec-chip" data-i18n="sp7_s">5–10 мм</span></div>
+        </div>
+
+        <div class="species-card tech-card">
+          <svg class="sp-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 25c7-10 19-14 29-8-1 4-1 6 1 9-9 6-22 2-30-1Z"/><path d="M6 22c1-2 3-2 4 0"/></svg>
+          <h3 data-i18n="sp8_h">Кои и золотые рыбки</h3>
+          <div class="sp-form" data-i18n="sp8_f">плавучий, декоративный</div>
+          <div class="chip-row"><span class="spec-chip" data-i18n="sp8_p">протеин 35–37%</span><span class="spec-chip" data-i18n="sp8_s">2–4 мм</span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="band alt">
+    <div class="container">
+      <div class="head-row reveal">
+        <div>
+          <div class="kicker">FaraFood</div>
+          <h2 data-i18n="pet_h2">Корма для домашних животных</h2>
+        </div>
+        <p data-i18n="pet_head">Отдельная линия полнорационных сухих кормов — совместная разработка с J.M Vet Group.</p>
+      </div>
+
+      <div class="pet-grid reveal">
+        <div class="pet-card tech-card">
+          <div class="pet-head">
+            <svg class="sp-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="14" cy="14" r="3.4"/><circle cx="24" cy="10" r="3.4"/><circle cx="34" cy="14" r="3.4"/><path d="M24 20c8 0 12 5 12 10 0 6-6 8-12 8s-12-2-12-8c0-5 4-10 12-10Z"/></svg>
+            <h3 data-i18n="pet1_h">Собачья еда</h3>
+          </div>
+          <p data-i18n="pet1_p">Правильная формулировка для здоровья кожи, мышц и костей, иммунитета и пищеварения — на каждом этапе роста.</p>
+          <div class="pet-lines">
+            <span class="pet-line">Puppy</span>
+            <span class="pet-line">Small Adult</span>
+            <span class="pet-line">Large Adult</span>
+          </div>
+          <div class="chip-row"><span class="spec-chip" data-i18n="pet1_pc">протеин 21–28%</span><span class="spec-chip" data-i18n="pet1_fc">жиры 12–17%</span></div>
+        </div>
+
+        <div class="pet-card tech-card">
+          <div class="pet-head">
+            <svg class="sp-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="14" cy="14" r="3"/><circle cx="24" cy="9" r="3"/><circle cx="34" cy="14" r="3"/><path d="M24 20c7 0 11 5 11 9 0 6-5 9-11 9s-11-3-11-9c0-4 4-9 11-9Z"/></svg>
+            <h3 data-i18n="pet2_h">Кошачья еда</h3>
+          </div>
+          <p data-i18n="pet2_p">Здоровое пищеварение, здоровье мочевыводящих путей и кожи, снижение запаха фекалий, поддержка иммунитета.</p>
+          <div class="pet-lines">
+            <span class="pet-line">Kitten</span>
+            <span class="pet-line">Sterilised</span>
+            <span class="pet-line">Indoor</span>
+          </div>
+          <div class="chip-row"><span class="spec-chip" data-i18n="pet2_pc">протеин 29–37%</span><span class="spec-chip" data-i18n="pet2_fc">жиры 12–18%</span></div>
+        </div>
+      </div>
+
+      <div class="awards-strip reveal" style="margin-top:44px;">
+        <span class="award-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="9" r="6"/><path d="M8 14l-2 7 6-3 6 3-2-7"/></svg><span data-i18n="aw1">Крупнейший национальный предприниматель</span></span>
+        <span class="award-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="9" r="6"/><path d="M8 14l-2 7 6-3 6 3-2-7"/></svg><span data-i18n="aw2">Образцовый экспортёр страны</span></span>
+        <span class="award-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="9" r="6"/><path d="M8 14l-2 7 6-3 6 3-2-7"/></svg><span data-i18n="aw3">Образец национального стандарта</span></span>
+        <span class="award-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="9" r="6"/><path d="M8 14l-2 7 6-3 6 3-2-7"/></svg><span data-i18n="aw4">Национальная группа R&amp;D</span></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-band" id="contact">
+    <div class="container contact-grid">
+      <div class="reveal">
+        <div class="kicker" data-i18n="con_kicker">Связаться</div>
+        <h2 data-i18n="con_h2">Готовы обсудить поставку кормов и сырья</h2>
+        <p class="lead-p" data-i18n="con_p">Оптовые поставки, экспорт, сотрудничество по сырью для водных кормов — пишите напрямую или оставьте заявку на сайте.</p>
+        <div class="contact-links">
+          <a href="https://www.faradanehco.ir" target="_blank" rel="noopener"><span><span class="tag" data-i18n="con_tag1">Сайт</span><br>www.faradanehco.ir</span><span>→</span></a>
+          <a href="mailto:info@faradaneh.net"><span><span class="tag" data-i18n="con_tag2">Email</span><br>info@faradaneh.net</span><span>→</span></a>
+        </div>
+      </div>
+      <div class="contact-side reveal">
+        <div class="kicker">Faradaneh Co.</div>
+        <ul>
+          <li data-i18n="side1">Крупнейшая цепь производства белка морского происхождения в Иране</li>
+          <li data-i18n="side2">16 производственных линий · 450 000 т кормов в год</li>
+          <li data-i18n="side3">8 заводов рыбной муки · 60+ ферм разведения</li>
+          <li>ISO 9001 · ISO 22000 · GMP · HACCP · ISO 17025</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="container foot-row">
+    <span data-i18n="foot1">© Faradaneh Co. — водная индустрия Ирана</span>
+    <span>info@faradaneh.net · www.faradanehco.ir</span>
+  </div>
+</footer>
+
+<script>
+  /* ============ i18n dictionary ============ */
+  var I18N = {
+    ru: {
+      _title:"Фараданех — цепь производства белка морского происхождения",
+      brand_sub:"Faradaneh Co. — водная индустрия",
+      nav_about:"Компания", nav_directions:"Направления", nav_production:"Производство",
+      nav_quality:"Качество", nav_products:"Продукция", nav_contact:"Контакты",
+      hero_eyebrow:"Faradaneh Co. · водная промышленность Ирана · с 1998 года",
+      hero_h1:"Полная цепь<br>белка <span>морского происхождения</span>",
+      hero_lede:"От сырья и рецептур — до корма, рыбы на ферме и готовой консервной банки. Фараданех — крупнейшее и наиболее полное производственное объединение водной индустрии Ирана.",
+      hero_cta1:"10 направлений деятельности", hero_cta2:"Каталог кормов",
+      hn1:"450 000 т",
+      stat_l1:"кормов в год", stat_l2:"рабочих мест", stat_l3:"ферм разведения",
+      stat_l4:"заводов рыбной муки", stat_l5:"производственных линий",
+      about_kicker:"О компании", about_h2:"Более четверти века в основании отрасли",
+      about_p1:"Обладая более чем 25-летним опытом в водной индустрии страны, Фараданех известна как крупнейшая и наиболее полная цепь производства белка морского происхождения в Иране. Компания играет значительную роль в самодостаточности отрасли и создала более 2500 рабочих мест. Акционеры компании последовательно инвестируют в полный цикл — от сырья до готового продукта на полке.",
+      about_p2:"Ниже — десять направлений, из которых складывается эта цепь.",
+      an2:"10 000+ т", an4:"15 млн+",
+      about_l1:"лет на рынке водной индустрии", about_l2:"добавок собственного производства",
+      about_l3:"специализированных грузовиков", about_l4:"банок рыбных консервов в год",
+      dir_kicker:"Структура холдинга", dir_h2:"10 направлений деятельности",
+      dir_head:"Полный цикл — от сырья и кормов до фермы, переработки, консервирования и дистрибуции внутри страны и на экспорт.",
+      c1:"КОРМА", c2:"СЫРЬЁ", c3:"ТОРГОВЛЯ", c4:"ДОБАВКИ", c5:"МАСЛО", c6:"ФЕРМЫ", c7:"ЛОГИСТИКА", c8:"ПЕРЕРАБОТКА", c9:"КОНСЕРВЫ", c10:"АГРО",
+      dir1_h:"Производство кормов для водных",
+      dir1_p:"Годовая мощность 450 000 тонн кормов для рыб, птицы, водных и домашних животных — крупнейший производитель на Ближнем Востоке.",
+      dir1_m:"450 000 т/год · бренд Farafoodplus",
+      dir2_h:"Рыбная мука и рыбий жир",
+      dir2_p:"8 заводов в северных и южных провинциях страны под контролем экспертов по качеству — ключевое сырьё для рецептур кормов.",
+      dir2_m:"8 заводов · сев. и юж. провинции",
+      dir3_h:"Внешняя торговля",
+      dir3_p:"Импорт сырья для водных кормов и экспорт выращенных гидробионтов, водных и сухих кормов для домашних животных.",
+      dir3_m:"импорт сырья · экспорт продукции",
+      dir4_h:"Производство добавок",
+      dir4_p:"Эксклюзивные рецепты и индивидуальные формулы, гарантирующие качество производимых кормов.",
+      dir4_m:"10 000+ т добавок в год",
+      dir5_h:"Завод растительного масла",
+      dir5_p:"Производство различных видов растительного масла и муки, используемых в собственной цепи производства.",
+      dir5_m:"масло + мука для внутренних нужд",
+      dir6_h:"Фермы разведения водных видов",
+      dir6_p:"Крупнейшие инкубационные и развивающие центры — более 60 ферм всех видов гидробионтов по стране.",
+      dir6_m:"60+ ферм · 10 000 т/год",
+      dir7_h:"Транспортировка и поставки",
+      dir7_p:"Более 100 специализированных грузовиков и прямые поставки на основные рынки внутри страны и за рубежом.",
+      dir7_m:"100+ спецгрузовиков",
+      dir8_h:"Переработка и упаковка",
+      dir8_p:"Переработка и упаковка белковых продуктов, особенно аквапродуктов, под маркой «Новый вкус» (Pazen Taraz).",
+      dir8_m:"бренд «Новый вкус»",
+      dir9_h:"Производство рыбных консервов",
+      dir9_p:"Годовая мощность более 15 млн банок на севере и юге страны под марками Topsy, Golden Lux, Adak и др.",
+      dir9_m:"15 млн+ банок/год",
+      dir10_h:"Молочно-мясной комплекс",
+      dir10_p:"Две промышленные животноводческие фермы на 1000 голов с доильным, племенным и откормочным отделениями.",
+      dir10_m:"15 т молока/день · 500 голов КРС",
+      prod_kicker:"Заводы по производству кормов", prod_h2:"Мощности, рассчитанные на масштаб отрасли",
+      prod_head:"Крупнейшая организованная сеть продаж и дистрибуции в Иране — и крупнейший экспортёр водных кормов в стране.",
+      pn2:"800+ т", pn3:"450 000 т", pn4:"№1",
+      prod_l1:"линий экструзии и пресс-грануляции", prod_l2:"производственная мощность в сутки",
+      prod_l3:"годовая мощность кормов", prod_l4:"экспортёр водных кормов в стране",
+      prod_b1:"<b>Farafoodplus</b> — собственный бренд сухих кормов для животных разных пород и возрастов.",
+      prod_b2:"Крупнейшие складские площади страны для хранения сырья.",
+      prod_b3:"Опытная техническая команда локализует сборку машин и производственных линий.",
+      prod_b4:"Крупнейшая организованная сеть продаж и распространения продукции в Иране.",
+      qual_kicker:"Контроль качества", qual_h2:"Сертифицировано на каждом этапе",
+      qual_p:"Количественные и качественные проверки на всех этапах производства с привлечением опытных экспертов и современного лабораторного оборудования — химического, микробиологического и биотехнологического.",
+      qual_cert7:"Образец нац. стандарта",
+      qual_kicker2:"Исследования и разработки", qual_h2b:"R&D и послепродажный сервис",
+      qual_r1:"докторов наук в штате, сотрудничающих с университетами страны",
+      qual_r2:"штатных специалистов с учёной степенью магистра",
+      qual_r3:"онлайн-заказы, визиты на фермы и семинары для клиентов",
+      prod2_kicker:"Продукция", prod2_h2:"Экструдированные корма для 8 видов гидробионтов",
+      prod2_head:"Рецептуры под каждый вид, размер и стадию роста — с точным балансом протеина, жиров и калибра гранулы.",
+      sp1_h:"Форель", sp1_f:"экструдированный, плавучий", sp1_p:"протеин 38–54%", sp1_s:"0.3–9.5 мм",
+      sp2_h:"Карповые", sp2_f:"плавучий / тонущий, типы A/B/C", sp2_p:"протеин 21–43%", sp2_s:"0.3–10 мм",
+      sp3_h:"Осетровые", sp3_f:"экструдированный, тонущий", sp3_p:"протеин 40–56%", sp3_s:"0.3–12 мм",
+      sp4_h:"Креветка Ваннамей", sp4_f:"гранулы, тонущий корм", sp4_p:"протеин 37–46%", sp4_s:"PL10 – >20 г",
+      sp5_h:"Морской окунь", sp5_f:"экструдированный, полуплавучий", sp5_p:"протеин 41–54%", sp5_s:"0.3–10 мм",
+      sp6_h:"Тилапия", sp6_f:"экструдированный, плавучий", sp6_p:"протеин 31–49%", sp6_s:"0.4–6 мм",
+      sp7_h:"Амурской (белый амур)", sp7_f:"чечевицеобразный — впервые в Иране", sp7_p:"протеин 28–30%", sp7_s:"5–10 мм",
+      sp8_h:"Кои и золотые рыбки", sp8_f:"плавучий, декоративный", sp8_p:"протеин 35–37%", sp8_s:"2–4 мм",
+      pet_h2:"Корма для домашних животных",
+      pet_head:"Отдельная линия полнорационных сухих кормов — совместная разработка с J.M Vet Group.",
+      pet1_h:"Собачья еда",
+      pet1_p:"Правильная формулировка для здоровья кожи, мышц и костей, иммунитета и пищеварения — на каждом этапе роста.",
+      pet1_pc:"протеин 21–28%", pet1_fc:"жиры 12–17%",
+      pet2_h:"Кошачья еда",
+      pet2_p:"Здоровое пищеварение, здоровье мочевыводящих путей и кожи, снижение запаха фекалий, поддержка иммунитета.",
+      pet2_pc:"протеин 29–37%", pet2_fc:"жиры 12–18%",
+      aw1:"Крупнейший национальный предприниматель", aw2:"Образцовый экспортёр страны",
+      aw3:"Образец национального стандарта", aw4:"Национальная группа R&D",
+      con_kicker:"Связаться", con_h2:"Готовы обсудить поставку кормов и сырья",
+      con_p:"Оптовые поставки, экспорт, сотрудничество по сырью для водных кормов — пишите напрямую или оставьте заявку на сайте.",
+      con_tag1:"Сайт", con_tag2:"Email",
+      side1:"Крупнейшая цепь производства белка морского происхождения в Иране",
+      side2:"16 производственных линий · 450 000 т кормов в год",
+      side3:"8 заводов рыбной муки · 60+ ферм разведения",
+      foot1:"© Faradaneh Co. — водная индустрия Ирана"
+    },
+    uz: {
+      _title:"Faradaneh — dengiz oqsili ishlab chiqarish zanjiri",
+      brand_sub:"Faradaneh Co. — suv sanoati",
+      nav_about:"Kompaniya", nav_directions:"Yo‘nalishlar", nav_production:"Ishlab chiqarish",
+      nav_quality:"Sifat", nav_products:"Mahsulotlar", nav_contact:"Aloqa",
+      hero_eyebrow:"Faradaneh Co. · Eron suv sanoati · 1998 yildan beri",
+      hero_h1:"Dengiz oqsilining<br><span>to‘liq zanjiri</span>",
+      hero_lede:"Xomashyo va retseptlardan — yemga, fermadagi baliqqa va tayyor konserva bankasiga qadar. Faradaneh — Eron suv sanoatidagi eng yirik va eng to‘liq ishlab chiqarish birlashmasi.",
+      hero_cta1:"Faoliyatning 10 yo‘nalishi", hero_cta2:"Yem katalogi",
+      hn1:"450 000 t",
+      stat_l1:"yiliga yem", stat_l2:"ish o‘rni", stat_l3:"ko‘paytirish fermasi",
+      stat_l4:"baliq uni zavodi", stat_l5:"ishlab chiqarish liniyasi",
+      about_kicker:"Kompaniya haqida", about_h2:"Tarmoq poydevorida chorak asrdan ziyod",
+      about_p1:"Mamlakat suv sanoatida 25 yildan ortiq tajribaga ega bo‘lgan Faradaneh Eronda dengiz oqsilini ishlab chiqarishning eng yirik va eng to‘liq zanjiri sifatida tanilgan. Kompaniya tarmoqning o‘zini o‘zi ta’minlashida muhim rol o‘ynaydi va 2500 dan ortiq ish o‘rni yaratgan. Kompaniya aksiyadorlari xomashyodan tokchadagi tayyor mahsulotgacha bo‘lgan to‘liq tsiklga izchil sarmoya kiritadi.",
+      about_p2:"Quyida — ushbu zanjirni tashkil etuvchi o‘nta yo‘nalish.",
+      an2:"10 000+ t", an4:"15 mln+",
+      about_l1:"yil suv sanoati bozorida", about_l2:"o‘z ishlab chiqarish qo‘shimchalari",
+      about_l3:"maxsus yuk mashinasi", about_l4:"yiliga baliq konservasi bankasi",
+      dir_kicker:"Xolding tuzilmasi", dir_h2:"Faoliyatning 10 yo‘nalishi",
+      dir_head:"To‘liq tsikl — xomashyo va yemdan fermagacha, qayta ishlash, konservalash hamda mamlakat ichida va eksportga taqsimlash.",
+      c1:"YEM", c2:"XOMASHYO", c3:"SAVDO", c4:"QO‘SHIMCHALAR", c5:"YOG‘", c6:"FERMALAR", c7:"LOGISTIKA", c8:"QAYTA ISHLASH", c9:"KONSERVA", c10:"AGRO",
+      dir1_h:"Suv jonzotlari uchun yem ishlab chiqarish",
+      dir1_p:"Baliq, parranda, suv va uy hayvonlari uchun yiliga 450 000 tonna yem quvvati — Yaqin Sharqdagi eng yirik ishlab chiqaruvchi.",
+      dir1_m:"450 000 t/yil · Farafoodplus brendi",
+      dir2_h:"Baliq uni va baliq yog‘i",
+      dir2_p:"Sifat ekspertlari nazoratidagi mamlakatning shimoliy va janubiy viloyatlaridagi 8 zavod — yem retseptlari uchun asosiy xomashyo.",
+      dir2_m:"8 zavod · shimoliy va janubiy viloyatlar",
+      dir3_h:"Tashqi savdo",
+      dir3_p:"Suv yemlari uchun xomashyo importi hamda yetishtirilgan gidrobiontlar, suv va quruq hayvon yemlari eksporti.",
+      dir3_m:"xomashyo importi · mahsulot eksporti",
+      dir4_h:"Qo‘shimchalar ishlab chiqarish",
+      dir4_p:"Ishlab chiqarilayotgan yem sifatini kafolatlaydigan eksklyuziv retseptlar va individual formulalar.",
+      dir4_m:"yiliga 10 000+ t qo‘shimcha",
+      dir5_h:"O‘simlik yog‘i zavodi",
+      dir5_p:"O‘z ishlab chiqarish zanjirida ishlatiladigan turli xil o‘simlik yog‘i va un ishlab chiqarish.",
+      dir5_m:"ichki ehtiyoj uchun yog‘ + un",
+      dir6_h:"Suv turlarini ko‘paytirish fermalari",
+      dir6_p:"Eng yirik inkubatsiya va rivojlantirish markazlari — mamlakat bo‘ylab barcha turdagi gidrobiontlarning 60 dan ortiq fermasi.",
+      dir6_m:"60+ ferma · 10 000 t/yil",
+      dir7_h:"Tashish va yetkazib berish",
+      dir7_p:"100 dan ortiq maxsus yuk mashinasi hamda mamlakat ichidagi va xorijdagi asosiy bozorlarga to‘g‘ridan-to‘g‘ri yetkazib berish.",
+      dir7_m:"100+ maxsus yuk mashinasi",
+      dir8_h:"Qayta ishlash va qadoqlash",
+      dir8_p:"Oqsil mahsulotlari, ayniqsa suv mahsulotlarini «Yangi ta’m» (Pazen Taraz) brendi ostida qayta ishlash va qadoqlash.",
+      dir8_m:"«Yangi ta’m» brendi",
+      dir9_h:"Baliq konservalari ishlab chiqarish",
+      dir9_p:"Mamlakatning shimoli va janubida Topsy, Golden Lux, Adak va boshqa brendlar ostida yiliga 15 mln dan ortiq banka quvvati.",
+      dir9_m:"yiliga 15 mln+ banka",
+      dir10_h:"Sut-go‘sht majmuasi",
+      dir10_p:"Sog‘ish, zotdorlik va boqish bo‘limlariga ega 1000 boshli ikkita sanoat chorvachilik fermasi.",
+      dir10_m:"kuniga 15 t sut · 500 bosh yirik mol",
+      prod_kicker:"Yem ishlab chiqarish zavodlari", prod_h2:"Tarmoq ko‘lamiga mo‘ljallangan quvvatlar",
+      prod_head:"Erondagi eng yirik uyushgan savdo va tarqatish tarmog‘i — hamda mamlakatdagi eng yirik suv yemi eksportyori.",
+      pn2:"800+ t", pn3:"450 000 t", pn4:"No.1",
+      prod_l1:"ekstruziya va press-granulyatsiya liniyasi", prod_l2:"kunlik ishlab chiqarish quvvati",
+      prod_l3:"yillik yem quvvati", prod_l4:"mamlakatdagi suv yemi eksportyori",
+      prod_b1:"<b>Farafoodplus</b> — turli zot va yoshdagi hayvonlar uchun quruq yemning o‘z brendi.",
+      prod_b2:"Xomashyo saqlash uchun mamlakatdagi eng yirik ombor maydonlari.",
+      prod_b3:"Tajribali texnik jamoa mashina va ishlab chiqarish liniyalarini yig‘ishni mahalliylashtiradi.",
+      prod_b4:"Erondagi eng yirik uyushgan mahsulot savdosi va tarqatish tarmog‘i.",
+      qual_kicker:"Sifat nazorati", qual_h2:"Har bir bosqichda sertifikatlangan",
+      qual_p:"Ishlab chiqarishning barcha bosqichlarida tajribali ekspertlar va zamonaviy laboratoriya jihozlari — kimyoviy, mikrobiologik va biotexnologik — jalb etilgan miqdoriy va sifat tekshiruvlari.",
+      qual_cert7:"Milliy standart namunasi",
+      qual_kicker2:"Tadqiqot va ishlanmalar", qual_h2b:"R&D va sotuvdan keyingi xizmat",
+      qual_r1:"mamlakat universitetlari bilan hamkorlik qiladigan fan doktorlari",
+      qual_r2:"magistr ilmiy darajasiga ega shtatdagi mutaxassislar",
+      qual_r3:"onlayn buyurtmalar, fermalarga tashriflar va mijozlar uchun seminarlar",
+      prod2_kicker:"Mahsulotlar", prod2_h2:"8 tur gidrobiont uchun ekstruziyalangan yem",
+      prod2_head:"Har bir tur, o‘lcham va o‘sish bosqichi uchun retseptlar — oqsil, yog‘ va granula kalibri aniq muvozanatida.",
+      sp1_h:"Forel", sp1_f:"ekstruziyalangan, suzuvchi", sp1_p:"protein 38–54%", sp1_s:"0.3–9.5 mm",
+      sp2_h:"Karpsimonlar", sp2_f:"suzuvchi / cho‘kuvchi, A/B/C turlari", sp2_p:"protein 21–43%", sp2_s:"0.3–10 mm",
+      sp3_h:"Bakrasimonlar", sp3_f:"ekstruziyalangan, cho‘kuvchi", sp3_p:"protein 40–56%", sp3_s:"0.3–12 mm",
+      sp4_h:"Vannamey krevetkasi", sp4_f:"granula, cho‘kuvchi yem", sp4_p:"protein 37–46%", sp4_s:"PL10 – >20 g",
+      sp5_h:"Dengiz olabug‘asi", sp5_f:"ekstruziyalangan, yarim suzuvchi", sp5_p:"protein 41–54%", sp5_s:"0.3–10 mm",
+      sp6_h:"Tilapiya", sp6_f:"ekstruziyalangan, suzuvchi", sp6_p:"protein 31–49%", sp6_s:"0.4–6 mm",
+      sp7_h:"Oq amur", sp7_f:"yasmiqsimon — Eronda birinchi marta", sp7_p:"protein 28–30%", sp7_s:"5–10 mm",
+      sp8_h:"Koi va oltin baliqlar", sp8_f:"suzuvchi, dekorativ", sp8_p:"protein 35–37%", sp8_s:"2–4 mm",
+      pet_h2:"Uy hayvonlari uchun yem",
+      pet_head:"To‘liq ratsionli quruq yemlarning alohida liniyasi — J.M Vet Group bilan hamkorlikda ishlab chiqilgan.",
+      pet1_h:"It uchun yem",
+      pet1_p:"Teri, mushak va suyaklar salomatligi, immunitet va hazm qilish uchun to‘g‘ri formula — o‘sishning har bir bosqichida.",
+      pet1_pc:"protein 21–28%", pet1_fc:"yog‘ 12–17%",
+      pet2_h:"Mushuk uchun yem",
+      pet2_p:"Sog‘lom hazm qilish, siydik yo‘llari va teri salomatligi, najas hidini kamaytirish, immunitetni qo‘llab-quvvatlash.",
+      pet2_pc:"protein 29–37%", pet2_fc:"yog‘ 12–18%",
+      aw1:"Eng yirik milliy tadbirkor", aw2:"Mamlakatning namunali eksportyori",
+      aw3:"Milliy standart namunasi", aw4:"Milliy R&D guruhi",
+      con_kicker:"Bog‘lanish", con_h2:"Yem va xomashyo yetkazib berishni muhokama qilishga tayyormiz",
+      con_p:"Ulgurji yetkazib berish, eksport, suv yemi xomashyosi bo‘yicha hamkorlik — to‘g‘ridan-to‘g‘ri yozing yoki saytda ariza qoldiring.",
+      con_tag1:"Sayt", con_tag2:"Email",
+      side1:"Eronda dengiz oqsilini ishlab chiqarishning eng yirik zanjiri",
+      side2:"16 ishlab chiqarish liniyasi · yiliga 450 000 t yem",
+      side3:"8 baliq uni zavodi · 60+ ko‘paytirish fermasi",
+      foot1:"© Faradaneh Co. — Eron suv sanoati"
+    },
+    kz: {
+      _title:"Фараданех — теңіз ақуызын өндіру тізбегі",
+      brand_sub:"Faradaneh Co. — су индустриясы",
+      nav_about:"Компания", nav_directions:"Бағыттар", nav_production:"Өндіріс",
+      nav_quality:"Сапа", nav_products:"Өнім", nav_contact:"Байланыс",
+      hero_eyebrow:"Faradaneh Co. · Иран су өнеркәсібі · 1998 жылдан бері",
+      hero_h1:"Теңіз ақуызының<br><span>толық тізбегі</span>",
+      hero_lede:"Шикізат пен рецептурадан — жемге, фермадағы балыққа және дайын консерві банкасына дейін. Фараданех — Иран су индустриясындағы ең ірі әрі ең толық өндірістік бірлестік.",
+      hero_cta1:"Қызметтің 10 бағыты", hero_cta2:"Жем каталогы",
+      hn1:"450 000 т",
+      stat_l1:"жылына жем", stat_l2:"жұмыс орны", stat_l3:"өсіру фермасы",
+      stat_l4:"балық ұны зауыты", stat_l5:"өндіріс желісі",
+      about_kicker:"Компания туралы", about_h2:"Саланың негізінде ширек ғасырдан астам",
+      about_p1:"Ел су индустриясында 25 жылдан астам тәжірибесі бар Фараданех Иранда теңіз ақуызын өндірудің ең ірі әрі ең толық тізбегі ретінде танылған. Компания саланың өзін-өзі қамтамасыз етуінде маңызды рөл атқарады және 2500-ден астам жұмыс орнын ашты. Компания акционерлері шикізаттан сөредегі дайын өнімге дейінгі толық циклге дәйекті түрде инвестиция салады.",
+      about_p2:"Төменде — осы тізбекті құрайтын он бағыт.",
+      an2:"10 000+ т", an4:"15 млн+",
+      about_l1:"жыл су индустриясы нарығында", about_l2:"өз өндірісінің қоспалары",
+      about_l3:"арнайы жүк көлігі", about_l4:"жылына балық консервісі банкасы",
+      dir_kicker:"Холдинг құрылымы", dir_h2:"Қызметтің 10 бағыты",
+      dir_head:"Толық цикл — шикізат пен жемнен фермаға дейін, қайта өңдеу, консервілеу және ел ішінде әрі экспортқа тарату.",
+      c1:"ЖЕМ", c2:"ШИКІЗАТ", c3:"САУДА", c4:"ҚОСПАЛАР", c5:"МАЙ", c6:"ФЕРМАЛАР", c7:"ЛОГИСТИКА", c8:"ҚАЙТА ӨҢДЕУ", c9:"КОНСЕРВІ", c10:"АГРО",
+      dir1_h:"Су жәндіктеріне жем өндіру",
+      dir1_p:"Балық, құс, су және үй жануарларына арналған жылына 450 000 тонна жем қуаты — Таяу Шығыстағы ең ірі өндіруші.",
+      dir1_m:"450 000 т/жыл · Farafoodplus бренді",
+      dir2_h:"Балық ұны және балық майы",
+      dir2_p:"Сапа сарапшыларының бақылауындағы елдің солтүстік және оңтүстік облыстарындағы 8 зауыт — жем рецептурасына арналған негізгі шикізат.",
+      dir2_m:"8 зауыт · солт. және оңт. облыстар",
+      dir3_h:"Сыртқы сауда",
+      dir3_p:"Су жеміне арналған шикізат импорты және өсірілген гидробионттар, су әрі құрғақ жануар жемдерінің экспорты.",
+      dir3_m:"шикізат импорты · өнім экспорты",
+      dir4_h:"Қоспалар өндіру",
+      dir4_p:"Өндірілетін жем сапасын кепілдейтін эксклюзивті рецептер мен жеке формулалар.",
+      dir4_m:"жылына 10 000+ т қоспа",
+      dir5_h:"Өсімдік майы зауыты",
+      dir5_p:"Өз өндіріс тізбегінде қолданылатын әртүрлі өсімдік майы мен ұн өндіру.",
+      dir5_m:"ішкі қажеттілікке май + ұн",
+      dir6_h:"Су түрлерін өсіру фермалары",
+      dir6_p:"Ең ірі инкубациялық және дамыту орталықтары — ел бойынша барлық гидробионт түрлерінің 60-тан астам фермасы.",
+      dir6_m:"60+ ферма · 10 000 т/жыл",
+      dir7_h:"Тасымалдау және жеткізу",
+      dir7_p:"100-ден астам арнайы жүк көлігі және ел ішіндегі әрі шетелдегі негізгі нарықтарға тікелей жеткізу.",
+      dir7_m:"100+ арнайы жүк көлігі",
+      dir8_h:"Қайта өңдеу және қаптау",
+      dir8_p:"Ақуыз өнімдерін, әсіресе су өнімдерін «Жаңа дәм» (Pazen Taraz) бренді астында қайта өңдеу және қаптау.",
+      dir8_m:"«Жаңа дәм» бренді",
+      dir9_h:"Балық консервілерін өндіру",
+      dir9_p:"Елдің солтүстігі мен оңтүстігінде Topsy, Golden Lux, Adak және т.б. брендтер астында жылына 15 млн-нан астам банка қуаты.",
+      dir9_m:"жылына 15 млн+ банка",
+      dir10_h:"Сүт-ет кешені",
+      dir10_p:"Сауу, асыл тұқымды және бордақылау бөлімдері бар 1000 бастық екі өнеркәсіптік мал шаруашылығы фермасы.",
+      dir10_m:"тәулігіне 15 т сүт · 500 бас ІҚМ",
+      prod_kicker:"Жем өндіру зауыттары", prod_h2:"Сала ауқымына есептелген қуаттар",
+      prod_head:"Ирандағы ең ірі ұйымдасқан сауда және тарату желісі — әрі елдегі ең ірі су жемі экспорттаушысы.",
+      pn2:"800+ т", pn3:"450 000 т", pn4:"№1",
+      prod_l1:"экструзия және пресс-грануляция желісі", prod_l2:"тәуліктік өндіріс қуаты",
+      prod_l3:"жылдық жем қуаты", prod_l4:"елдегі су жемі экспорттаушысы",
+      prod_b1:"<b>Farafoodplus</b> — әртүрлі тұқым мен жастағы жануарларға арналған құрғақ жемнің меншікті бренді.",
+      prod_b2:"Шикізат сақтауға арналған елдегі ең ірі қойма алаңдары.",
+      prod_b3:"Тәжірибелі техникалық топ машиналар мен өндіріс желілерін құрастыруды жергіліктендіреді.",
+      prod_b4:"Ирандағы ең ірі ұйымдасқан өнім саудасы мен тарату желісі.",
+      qual_kicker:"Сапа бақылауы", qual_h2:"Әр кезеңде сертификатталған",
+      qual_p:"Өндірістің барлық кезеңдерінде тәжірибелі сарапшылар мен заманауи зертханалық жабдықтар — химиялық, микробиологиялық және биотехнологиялық — тартылған сандық және сапалық тексерулер.",
+      qual_cert7:"Ұлттық стандарт үлгісі",
+      qual_kicker2:"Зерттеу және әзірлемелер", qual_h2b:"R&D және сатудан кейінгі қызмет",
+      qual_r1:"ел университеттерімен ынтымақтасатын ғылым докторлары",
+      qual_r2:"магистр ғылыми дәрежесі бар штаттағы мамандар",
+      qual_r3:"онлайн тапсырыстар, фермаларға бару және клиенттерге семинарлар",
+      prod2_kicker:"Өнім", prod2_h2:"8 түрлі гидробионтқа арналған экструзияланған жем",
+      prod2_head:"Әр түр, өлшем және өсу кезеңіне арналған рецептура — ақуыз, май және түйіршік калибрінің дәл балансымен.",
+      sp1_h:"Форель", sp1_f:"экструзияланған, қалқымалы", sp1_p:"протеин 38–54%", sp1_s:"0.3–9.5 мм",
+      sp2_h:"Тұқы тәрізділер", sp2_f:"қалқымалы / батпалы, A/B/C түрлері", sp2_p:"протеин 21–43%", sp2_s:"0.3–10 мм",
+      sp3_h:"Бекіре тәрізділер", sp3_f:"экструзияланған, батпалы", sp3_p:"протеин 40–56%", sp3_s:"0.3–12 мм",
+      sp4_h:"Ваннамей асшаяны", sp4_f:"түйіршік, батпалы жем", sp4_p:"протеин 37–46%", sp4_s:"PL10 – >20 г",
+      sp5_h:"Теңіз алабұғасы", sp5_f:"экструзияланған, жартылай қалқымалы", sp5_p:"протеин 41–54%", sp5_s:"0.3–10 мм",
+      sp6_h:"Тилапия", sp6_f:"экструзияланған, қалқымалы", sp6_p:"протеин 31–49%", sp6_s:"0.4–6 мм",
+      sp7_h:"Ақ амур", sp7_f:"жасымық тәрізді — Иранда алғаш рет", sp7_p:"протеин 28–30%", sp7_s:"5–10 мм",
+      sp8_h:"Кои және алтын балықтар", sp8_f:"қалқымалы, сәндік", sp8_p:"протеин 35–37%", sp8_s:"2–4 мм",
+      pet_h2:"Үй жануарларына арналған жем",
+      pet_head:"Толық рационды құрғақ жемдердің жеке желісі — J.M Vet Group-пен бірлескен әзірлеме.",
+      pet1_h:"Итке арналған жем",
+      pet1_p:"Тері, бұлшықет пен сүйек денсаулығы, иммунитет және ас қорыту үшін дұрыс формула — өсудің әр кезеңінде.",
+      pet1_pc:"протеин 21–28%", pet1_fc:"май 12–17%",
+      pet2_h:"Мысыққа арналған жем",
+      pet2_p:"Сау ас қорыту, зәр шығару жолдары мен тері денсаулығы, нәжіс иісін азайту, иммунитетті қолдау.",
+      pet2_pc:"протеин 29–37%", pet2_fc:"май 12–18%",
+      aw1:"Ең ірі ұлттық кәсіпкер", aw2:"Елдің үлгілі экспорттаушысы",
+      aw3:"Ұлттық стандарт үлгісі", aw4:"Ұлттық R&D тобы",
+      con_kicker:"Байланысу", con_h2:"Жем мен шикізат жеткізуді талқылауға дайынбыз",
+      con_p:"Көтерме жеткізу, экспорт, су жеміне шикізат бойынша ынтымақтастық — тікелей жазыңыз немесе сайтта өтінім қалдырыңыз.",
+      con_tag1:"Сайт", con_tag2:"Email",
+      side1:"Иранда теңіз ақуызын өндірудің ең ірі тізбегі",
+      side2:"16 өндіріс желісі · жылына 450 000 т жем",
+      side3:"8 балық ұны зауыты · 60+ өсіру фермасы",
+      foot1:"© Faradaneh Co. — Иран су индустриясы"
+    }
+  };
+
+  var LANG_ATTR = { ru:"ru", uz:"uz", kz:"kk" };
+
+  function setLang(lang){
+    var L = I18N[lang]; if(!L) return;
+    document.documentElement.setAttribute('lang', LANG_ATTR[lang] || 'ru');
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var v = L[el.getAttribute('data-i18n')];
+      if(v != null) el.textContent = v;
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(function(el){
+      var v = L[el.getAttribute('data-i18n-html')];
+      if(v != null) el.innerHTML = v;
+    });
+    if(L._title) document.title = L._title;
+    document.querySelectorAll('.lang-switch button').forEach(function(b){
+      b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+    });
+    try{ localStorage.setItem('fd_lang', lang); }catch(e){}
+  }
+
+  (function(){
+    var saved = 'ru';
+    try{ saved = localStorage.getItem('fd_lang') || 'ru'; }catch(e){}
+    if(!I18N[saved]) saved = 'ru';
+    setLang(saved);
+    document.querySelectorAll('.lang-switch button').forEach(function(b){
+      b.addEventListener('click', function(){ setLang(b.getAttribute('data-lang')); });
+    });
+  })();
+
+  /* ============ theme toggle ============ */
+  function applyThemeIcon(theme){
+    var sun = document.getElementById('iconSun');
+    var moon = document.getElementById('iconMoon');
+    if(theme === 'dark'){ sun.style.display='block'; moon.style.display='none'; }
+    else { sun.style.display='none'; moon.style.display='block'; }
+  }
+  function setTheme(theme){
+    document.documentElement.setAttribute('data-theme', theme);
+    applyThemeIcon(theme);
+    try{ localStorage.setItem('fd_theme', theme); }catch(e){}
+  }
+  (function(){
+    var saved = null;
+    try{ saved = localStorage.getItem('fd_theme'); }catch(e){}
+    if(saved !== 'dark' && saved !== 'light'){
+      saved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    setTheme(saved);
+    document.getElementById('themeToggle').addEventListener('click', function(){
+      var cur = document.documentElement.getAttribute('data-theme');
+      setTheme(cur === 'dark' ? 'light' : 'dark');
+    });
+  })();
+
+  /* ============ mobile menu ============ */
+  var burger = document.getElementById('burgerBtn');
+  var menu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', function(){
+    var open = menu.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  menu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ menu.classList.remove('open'); });
+  });
+
+  /* ============ scroll reveal ============ */
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduceMotion && 'IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* ============ hero bathymetric wave canvas ============ */
+  (function(){
+    var canvas = document.getElementById('waveCanvas');
+    var ctx = canvas.getContext('2d');
+    var hero = canvas.parentElement;
+    var w, h, dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    function resize(){
+      w = hero.clientWidth; h = hero.clientHeight;
+      canvas.width = w * dpr; canvas.height = h * dpr;
+      canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    var lines = 10;
+    var t = 0;
+
+    function draw(){
+      ctx.clearRect(0,0,w,h);
+      for(var i=0;i<lines;i++){
+        var yBase = h * (0.12 + i * 0.09);
+        var amp = 14 + i*2.2;
+        var freq = 0.006 + i*0.0006;
+        var phase = t*0.0006 + i*0.6;
+        var alpha = 0.05 + (i/lines)*0.16;
+        ctx.beginPath();
+        for(var x=0; x<=w; x+=6){
+          var y = yBase + Math.sin(x*freq + phase) * amp + Math.sin(x*freq*2.3 + phase*1.7) * amp*0.3;
+          if(x===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+        }
+        ctx.strokeStyle = 'rgba(63,208,201,' + alpha + ')';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+    }
+
+    if(reduceMotion){
+      draw();
+    } else {
+      function loop(ts){ t = ts; draw(); requestAnimationFrame(loop); }
+      requestAnimationFrame(loop);
+    }
+  })();
+</script>
