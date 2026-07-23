@@ -287,6 +287,34 @@
   .award-chip{ display:flex; align-items:center; gap:8px; border:1px solid var(--line); padding:10px 16px; font-family:Consolas,monospace; font-size:.72rem; color:var(--ink-soft); }
   .award-chip svg{ width:15px; height:15px; color:var(--teal); flex:none; }
 
+  /* ---------- feed catalog ---------- */
+  .cat-filters{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:28px; }
+  .cat-filters button{
+    font-family:"Arial Black",Arial,sans-serif; font-size:.62rem; text-transform:uppercase; letter-spacing:.06em;
+    padding:9px 16px; background:transparent; color:var(--ink-soft); border:1px solid var(--line);
+    border-radius:var(--radius); cursor:pointer; transition:all .2s;
+  }
+  .cat-filters button:hover{ color:var(--teal); border-color:var(--teal); }
+  .cat-filters button.active{ background:var(--teal); color:#F4FBFA; border-color:var(--teal); }
+  .cat-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .cat-card{
+    border:1px solid var(--line); background:var(--surface); border-radius:calc(var(--radius) + 1px);
+    overflow:hidden; display:flex; flex-direction:column;
+  }
+  .cat-photo{ width:100%; height:118px; object-fit:cover; display:block; background:var(--surface-2); }
+  .cat-body{ padding:15px 16px 17px; display:flex; flex-direction:column; gap:11px; flex:1; }
+  .cat-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:8px; }
+  .cat-code{ font-family:"Arial Black",Arial,sans-serif; font-size:1.05rem; letter-spacing:.02em; color:var(--ink); }
+  .cat-badge{
+    font-family:Consolas,monospace; font-size:.58rem; text-transform:uppercase; letter-spacing:.04em;
+    padding:4px 9px; border-radius:20px; white-space:nowrap; flex:none;
+  }
+  .cat-badge.ok{ background:color-mix(in srgb, var(--teal) 16%, transparent); color:var(--teal); }
+  .cat-badge.no{ background:color-mix(in srgb, var(--amber) 20%, transparent); color:var(--amber); }
+  .cat-sub{ font-size:.8rem; color:var(--ink-faint); font-style:italic; font-family:Georgia,serif; }
+  .cat-card .chip-row{ margin-top:auto; }
+  .cat-price{ font-family:Consolas,monospace; font-weight:bold; color:var(--ink); }
+
   /* ---------- showcase gallery ---------- */
   .gallery-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
   .shot{ position:relative; overflow:hidden; border:1px solid var(--line); border-radius:calc(var(--radius) + 1px); background:var(--surface-2); }
@@ -333,6 +361,7 @@
     .species-grid{ grid-template-columns:1fr 1fr; }
     .pet-grid{ grid-template-columns:1fr; }
     .gallery-grid{ grid-template-columns:1fr; }
+    .cat-grid{ grid-template-columns:repeat(3,1fr); }
   }
 
   /* ---------- phone ---------- */
@@ -376,6 +405,8 @@
     .prod-grid{ grid-template-columns:1fr 1fr; }
     .prod-grid .num{ font-size:1.7rem; }
     .prod-grid div{ padding:22px 16px; }
+    .cat-grid{ grid-template-columns:1fr 1fr; gap:12px; }
+    .cat-photo{ height:110px; }
     .species-grid{ grid-template-columns:1fr 1fr; gap:12px; }
     .species-card .sp-photo{ height:130px; }
     .species-card .sp-body{ padding:16px 14px 18px; }
@@ -418,10 +449,10 @@
     </a>
     <div class="nav-cluster">
       <nav class="links">
+        <a href="#catalog" data-i18n="nav_catalog">Каталог</a>
         <a href="#about" data-i18n="nav_about">Компания</a>
         <a href="#directions" data-i18n="nav_directions">Направления</a>
         <a href="#production" data-i18n="nav_production">Производство</a>
-        <a href="#quality" data-i18n="nav_quality">Качество</a>
         <a href="#products" data-i18n="nav_products">Продукция</a>
         <a href="#contact" class="cta-btn" data-i18n="nav_contact">Контакты</a>
       </nav>
@@ -442,6 +473,7 @@
     </div>
   </div>
   <div class="mobile-menu" id="mobileMenu">
+    <a href="#catalog" data-i18n="nav_catalog">Каталог</a>
     <a href="#about" data-i18n="nav_about">Компания</a>
     <a href="#directions" data-i18n="nav_directions">Направления</a>
     <a href="#production" data-i18n="nav_production">Производство</a>
@@ -470,6 +502,20 @@
         <div><div class="num">8</div><div class="lbl" data-i18n="stat_l4">заводов рыбной муки</div></div>
         <div><div class="num">16</div><div class="lbl" data-i18n="stat_l5">производственных линий</div></div>
       </div>
+    </div>
+  </section>
+
+  <section class="band alt" id="catalog">
+    <div class="container">
+      <div class="head-row reveal">
+        <div>
+          <div class="kicker" data-i18n="cat_kicker">Каталог</div>
+          <h2 data-i18n="cat_h2">Каталог кормов</h2>
+        </div>
+        <p data-i18n="cat_head">Полный ассортимент экструдированных кормов — вес мешка, цена и наличие на складе.</p>
+      </div>
+      <div class="cat-filters reveal" id="catFilters"></div>
+      <div class="cat-grid" id="catGrid"></div>
     </div>
   </section>
 
@@ -952,7 +998,10 @@
       gal_kicker:"Один взгляд", gal_h2:"Производство, логистика и бренды",
       shot1_t:"Заводы", shot1_s:"16 линий · 800+ т/сутки",
       shot2_t:"Логистика", shot2_s:"100+ спецгрузовиков",
-      shot3_t:"Консервы", shot3_s:"Topsy · Golden Lux · Adak"
+      shot3_t:"Консервы", shot3_s:"Topsy · Golden Lux · Adak",
+      nav_catalog:"Каталог", cat_kicker:"Каталог", cat_h2:"Каталог кормов",
+      cat_head:"Полный ассортимент экструдированных кормов — вес мешка, цена и наличие на складе.",
+      cat_all:"Все", cat_cat:"Корм", avail_ok:"В наличии", avail_no:"Под заказ", unit_kgbag:"кг/мешок"
     },
     uz: {
       _title:"Faradaneh — dengiz oqsili ishlab chiqarish zanjiri",
@@ -1051,7 +1100,10 @@
       gal_kicker:"Bir qarash", gal_h2:"Ishlab chiqarish, logistika va brendlar",
       shot1_t:"Zavodlar", shot1_s:"16 liniya · 800+ t/kun",
       shot2_t:"Logistika", shot2_s:"100+ maxsus yuk mashinasi",
-      shot3_t:"Konservalar", shot3_s:"Topsy · Golden Lux · Adak"
+      shot3_t:"Konservalar", shot3_s:"Topsy · Golden Lux · Adak",
+      nav_catalog:"Katalog", cat_kicker:"Katalog", cat_h2:"Yem katalogi",
+      cat_head:"Ekstruziyalangan yemlarning to‘liq assortimenti — qop vazni, narxi va omborda mavjudligi.",
+      cat_all:"Barchasi", cat_cat:"Yem", avail_ok:"Sotuvda bor", avail_no:"Buyurtma asosida", unit_kgbag:"kg/qop"
     },
     kz: {
       _title:"Фараданех — теңіз ақуызын өндіру тізбегі",
@@ -1150,7 +1202,10 @@
       gal_kicker:"Бір көзқарас", gal_h2:"Өндіріс, логистика және брендтер",
       shot1_t:"Зауыттар", shot1_s:"16 желі · 800+ т/тәул",
       shot2_t:"Логистика", shot2_s:"100+ арнайы жүк көлігі",
-      shot3_t:"Консервілер", shot3_s:"Topsy · Golden Lux · Adak"
+      shot3_t:"Консервілер", shot3_s:"Topsy · Golden Lux · Adak",
+      nav_catalog:"Каталог", cat_kicker:"Каталог", cat_h2:"Жем каталогы",
+      cat_head:"Экструзияланған жемдердің толық ассортименті — қап салмағы, бағасы және қоймадағы бары.",
+      cat_all:"Барлығы", cat_cat:"Жем", avail_ok:"Қоймада бар", avail_no:"Тапсырыс бойынша", unit_kgbag:"кг/қап"
     }
   };
 
@@ -1171,8 +1226,83 @@
     document.querySelectorAll('.lang-switch button').forEach(function(b){
       b.classList.toggle('active', b.getAttribute('data-lang') === lang);
     });
+    if(typeof renderCatalog === 'function') renderCatalog(lang);
     try{ localStorage.setItem('fd_lang', lang); }catch(e){}
   }
+
+  /* ============ feed catalog data + render ============ */
+  var PRODUCTS = [
+    // type: t=форель, c=карповые, s=осетровые | kg=вес мешка | price=цена/мешок ₸ | ok=в наличии
+    {code:'FFT1',   type:'t', kg:25, price:25000, ok:true},
+    {code:'FFT2',   type:'t', kg:25, price:25000, ok:true},
+    {code:'GFT1',   type:'t', kg:25, price:23750, ok:true},
+    {code:'GFT2',   type:'t', kg:25, price:23750, ok:true},
+    {code:'GFT3',   type:'t', kg:25, price:23750, ok:true},
+    {code:'GFT4',   type:'t', kg:25, price:26250, ok:false},
+    {code:'SFT0',   type:'t', kg:10, price:16000, ok:true},
+    {code:'SFT00',  type:'t', kg:10, price:16000, ok:true},
+    {code:'SFT000', type:'t', kg:10, price:16000, ok:true},
+    {code:'SFT1',   type:'t', kg:25, price:31250, ok:true},
+    {code:'SFT2',   type:'t', kg:25, price:31250, ok:true},
+    {code:'SFT3',   type:'t', kg:25, price:31250, ok:true},
+    {code:'FFC',    type:'c', kg:25, price:21250, ok:false},
+    {code:'GFC1/A', type:'c', kg:25, price:16250, ok:true},
+    {code:'GFC2/A', type:'c', kg:25, price:16250, ok:true},
+    {code:'GFC3/A', type:'c', kg:25, price:18750, ok:false},
+    {code:'GFC4/A', type:'c', kg:25, price:18750, ok:false},
+    {code:'SFC',    type:'c', kg:25, price:21250, ok:false},
+    {code:'SFC0',   type:'c', kg:10, price:8500,  ok:false},
+    {code:'SFC00',  type:'c', kg:10, price:8500,  ok:false},
+    {code:'SFC000', type:'c', kg:10, price:8500,  ok:false},
+    {code:'FFS1',   type:'s', kg:25, price:30000, ok:false},
+    {code:'FFS2',   type:'s', kg:25, price:30000, ok:false},
+    {code:'GFS3',   type:'s', kg:25, price:25000, ok:false}
+  ];
+  var CAT_META = {
+    t:{ img:'assets/crop/fish_trout.jpg',    name:'sp1_h' },
+    c:{ img:'assets/crop/fish_carp.jpg',     name:'sp2_h' },
+    s:{ img:'assets/crop/fish_sturgeon.jpg', name:'sp3_h' }
+  };
+  var catFilter = 'all', catLang = 'ru';
+  function fmtNum(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
+  function renderCatalog(lang){
+    catLang = lang;
+    var L = I18N[lang] || I18N.ru;
+    var fbox = document.getElementById('catFilters');
+    var grid = document.getElementById('catGrid');
+    if(!fbox || !grid) return;
+    var filters = [['all', L.cat_all], ['t', L.sp1_h], ['c', L.sp2_h], ['s', L.sp3_h]];
+    fbox.innerHTML = filters.map(function(f){
+      return '<button type="button" data-f="' + f[0] + '" class="' + (catFilter === f[0] ? 'active' : '') + '">' + f[1] + '</button>';
+    }).join('');
+    grid.innerHTML = PRODUCTS.filter(function(p){
+      return catFilter === 'all' || p.type === catFilter;
+    }).map(function(p){
+      var m = CAT_META[p.type];
+      var badge = p.ok
+        ? '<span class="cat-badge ok">' + L.avail_ok + '</span>'
+        : '<span class="cat-badge no">' + L.avail_no + '</span>';
+      return '<div class="cat-card">' +
+        '<img class="cat-photo" src="' + m.img + '" alt="">' +
+        '<div class="cat-body">' +
+          '<div class="cat-top"><span class="cat-code">' + p.code + '</span>' + badge + '</div>' +
+          '<div class="cat-sub">' + L.cat_cat + ' · ' + L[m.name] + '</div>' +
+          '<div class="chip-row">' +
+            '<span class="spec-chip">' + p.kg + ' ' + L.unit_kgbag + '</span>' +
+            '<span class="spec-chip cat-price">' + fmtNum(p.price) + ' ₸</span>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+  (function(){
+    var fbox = document.getElementById('catFilters');
+    if(fbox) fbox.addEventListener('click', function(e){
+      var b = e.target.closest('button'); if(!b) return;
+      catFilter = b.getAttribute('data-f');
+      renderCatalog(catLang);
+    });
+  })();
 
   (function(){
     var saved = 'ru';
